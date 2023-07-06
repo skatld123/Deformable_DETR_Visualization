@@ -1,0 +1,6 @@
+## Ignore File ##
+*.jpg
+*.png
+*.pth
+*.pyc
+exps/*

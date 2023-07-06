@@ -1,0 +1,7 @@
+# ninja log v5
+0	9712	1682650202180564668	/root/Deformable-DETR/models/ops/build/temp.linux-x86_64-3.8/root/Deformable-DETR/models/ops/src/cpu/ms_deform_attn_cpu.o	6549c8bacb377ef3
+0	27828	1682650220282133390	/root/Deformable-DETR/models/ops/build/temp.linux-x86_64-3.8/root/Deformable-DETR/models/ops/src/vision.o	524d6fbaffaad8cc
+1	64209	1682650256665290351	/root/Deformable-DETR/models/ops/build/temp.linux-x86_64-3.8/root/Deformable-DETR/models/ops/src/cuda/ms_deform_attn_cuda.o	45e232b2cb8f85c
+32	5604	1686646075684943559	/root/Deformable-DETR/models/ops/build/temp.linux-x86_64-3.8/root/Deformable-DETR/models/ops/src/cpu/ms_deform_attn_cpu.o	e0db0520b1956baf
+31	21818	1686646091886367265	/root/Deformable-DETR/models/ops/build/temp.linux-x86_64-3.8/root/Deformable-DETR/models/ops/src/vision.o	c3c778f2b6887fcf
+32	49352	1686646119412785479	/root/Deformable-DETR/models/ops/build/temp.linux-x86_64-3.8/root/Deformable-DETR/models/ops/src/cuda/ms_deform_attn_cuda.o	d46049197b03d358
