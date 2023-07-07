@@ -124,7 +124,7 @@ def get_args_parser():
     parser.add_argument('--eval', action='store_true')
     parser.add_argument('--num_workers', default=4, type=int)
     parser.add_argument('--cache_mode', default=False, action='store_true', help='whether to cache images on memory')
-    parser.add_argument('--faster_rcnn', default=True, action='store_true', help='use car proposal region')
+    parser.add_argument('--visualize_reference_point', default=False, action='store_true', help='visualize_reference_point')
 
     return parser
 

@@ -130,12 +130,13 @@ class DeformableDETR(nn.Module):
         if not isinstance(samples, NestedTensor):
             samples = nested_tensor_from_tensor_list(samples)
         features, pos = self.backbone(samples)
+        
         for feature in features : 
-            print(feature.tensors.shape)
+            print(f"input feature map from backbone : {feature.tensors.shape}")
 
         srcs = []  # srcs는 피처맵,
         masks = [] # 여기에는 마스크
-        # 아래 과정을 통해 각 피처맵의 많은 채널수를 256으로 만든다. 프로젝션
+        # 아래 프로젝션 과정을 통해 각 피처맵의 많은 채널수를 256으로 만든다. 
         for l, feat in enumerate(features):
             src, mask = feat.decompose()
             srcs.append(self.input_proj[l](src))
@@ -160,6 +161,9 @@ class DeformableDETR(nn.Module):
         query_embeds = None
         if not self.two_stage:
             query_embeds = self.query_embed.weight
+            
+        # faster_rcnn을 이용한 region proposal을 진행할 경우,
+        # 아래 작업을 거쳐 scaled_frcn_boxes를 트랜스포머에 넣어줌
         if frcnn_boxes != None : 
             b, c, w, h = samples.tensors.shape
             scaled_boxes = []
@@ -172,13 +176,12 @@ class DeformableDETR(nn.Module):
                 box = torch.cat((bx, by, bw, by), dim=0)
                 scaled_boxes.append(box)
             scaled_frcn_boxes = torch.stack(scaled_boxes, dim=0)
-            print(scaled_frcn_boxes.shape)
         else : scaled_frcn_boxes = None
-        # 트랜스포머의 입력으로 넣는다.
+        
         if self.two_stage :
-            hs, init_reference, inter_references, enc_outputs_class, enc_outputs_coord_unact, topk_coords_unact = self.transformer(srcs, masks, pos, query_embeds, frcnn_boxes=scaled_frcn_boxes)
+            hs, init_reference, inter_references, enc_outputs_class, enc_outputs_coord_unact, topk_coords_unact = self.transformer(srcs, masks, pos, query_embeds)
         else : 
-            hs, init_reference, inter_references, enc_outputs_class, enc_outputs_coord_unact = self.transformer(srcs, masks, pos, query_embeds, frcnn_boxes=scaled_frcn_boxes)
+            hs, init_reference, inter_references, enc_outputs_class, enc_outputs_coord_unact = self.transformer(srcs, masks, pos, query_embeds)
             topk_coords_unact = None
 
         outputs_classes = []
